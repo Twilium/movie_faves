@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_18_041414) do
+ActiveRecord::Schema.define(version: 2021_06_19_191634) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "likes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "movie_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -24,10 +31,19 @@ ActiveRecord::Schema.define(version: 2021_06_18_041414) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "movies_categories", force: :cascade do |t|
+    t.integer "movie_id", null: false
+    t.integer "category_id", null: false
+    t.index ["category_id"], name: "index_movies_categories_on_category_id"
+    t.index ["movie_id"], name: "index_movies_categories_on_movie_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "movies_categories", "categories"
+  add_foreign_key "movies_categories", "movies"
 end
