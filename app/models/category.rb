@@ -1,4 +1,4 @@
 class Category < ApplicationRecord
-    has_many :movies
-    has_many :users, through: :movies
+    has_many :movies_categories
+    has_many :movies, through: :movies_categories
 end
